@@ -15,7 +15,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Overzicht artikels</h1>
         <ul>
             <c:forEach var="boek" items="${requestScope.boeken}">
                 <li><c:out value="${boek.titel}"></c:out></li>
