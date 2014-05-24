@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package info.toegepaste.www.entity;
 
 import java.io.Serializable;
@@ -20,17 +19,19 @@ import javax.persistence.NamedQuery;
  * @author BTO-Ben
  */
 @NamedQueries({
-    @NamedQuery(
-    name="DVD.GetAllDvds", query="select d from DVD d")
+    @NamedQuery(name = "DVD.GetAllDvds", query = "select d from DVD d"),
+    @NamedQuery(name = "DVD.GetByTitel", query = "SELECT d FROM DVD d WHERE lower(d.titel) like :titel")
 })
-
 
 @Entity
 @DiscriminatorValue("DVD")
 public class DVD extends Artikel implements Serializable {
+
     private String regisseur;
-    public DVD(){
+
+    public DVD() {
     }
+
     public String getRegisseur() {
         return regisseur;
     }

@@ -156,7 +156,7 @@ img{
 .centertext{
     text-align: center;
 }
-input[type=submit]{
+input[type=submit].center{
     width: 200px;
     position: relative;
     margin-left: -100px;

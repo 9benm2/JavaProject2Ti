@@ -8,7 +8,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" 
-    prefix="fn" %> 
+           prefix="fn" %> 
 <%@page import="java.util.List"%>
 <%@page import="info.toegepaste.www.entity.Boek"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,8 +50,17 @@
         <section>
             <div class="container">
                 <div class="row clearfix">
+                    <div class="column full">
+                        <form method="GET" action="ManageServlet">
+                            <input type ="text" name="titel" value="">
+                            <input type="submit" name="filteren" value="Filteren">
+                        </form>
+
+                    </div>
+                </div>
+                <div class="row clearfix">
                     <div class="column half">
-                    <h2>Boeken</h2>
+                        <h2>Boeken</h2>
                         <div class="CSSTableGenerator" >
                             <table >
                                 <tr>
@@ -85,7 +94,7 @@
                         </div>
                     </div>
                     <div class="column half">
-                    <h2>DVDs</h2>
+                        <h2>DVDs</h2>
                         <div class="CSSTableGenerator" >
                             <table >
                                 <tr>

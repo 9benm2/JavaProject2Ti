@@ -16,9 +16,8 @@ import javax.persistence.NamedQuery;
  * @author BTO-Ben
  */
 @NamedQueries({
-    @NamedQuery(
-            name = "Boek.GetAllBoeken", query = "select b from Boek b"),
-    @NamedQuery(name = "Boek.GetByTitel", query = "SELECT b FROM Boek b WHERE b.titel = :titel")
+    @NamedQuery(name = "Boek.GetAllBoeken", query = "select b from Boek b"),
+    @NamedQuery(name = "Boek.GetByTitel", query = "SELECT b FROM Boek b WHERE lower(b.titel) like :titel")
 })
 
 @Entity

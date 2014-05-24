@@ -53,7 +53,7 @@ public class ManageServlet extends HttpServlet {
             //(zoek op in persistence.xml)
             //methode om alles aan te maken in commentaar na aanmaken
             //maakEntiteiten();
-            
+
             //als op overzicht artikels is geklikt
             if (request.getParameter("overzicht") != null) {
                 Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
@@ -65,8 +65,22 @@ public class ManageServlet extends HttpServlet {
                 request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");
                 //eerst met if checken of titel ingevuld is, als dit is List<boek> boeken overschrijven met nieuwe lijst
-                
                 //als de andere dingen ingevuld zin filteren door de items die niet voldoen te verwijderen uit de lijst met remove
+            }
+            if (request.getParameter("filteren") != null) {
+                Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
+                List<Boek> boeken = q1.getResultList();
+                Query q2 = em.createNamedQuery("DVD.GetAllDvds");
+                List<DVD> dvds = q2.getResultList();
+                //als titel ingevuld is lijst tot die boeken/DVDs beperken
+                if (!request.getParameter("titel").toString().equals("")) {
+                    Query q = em.createNamedQuery("Boek.GetByTitel");
+                    q.setParameter("titel", "%" + request.getParameter("titel") + "%");
+                    boeken = q.getResultList();
+                }
+                request.setAttribute("boeken", boeken);
+                request.setAttribute("dvds", dvds);
+                rd = request.getRequestDispatcher("overzicht.jsp");
             }
             rd.forward(request, response);
         } catch (Exception e) {
