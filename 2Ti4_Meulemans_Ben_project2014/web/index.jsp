@@ -45,6 +45,7 @@
             <div class="container">
                 <div class="row clearfix">
                     <div class="column full">
+                        <p>Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels die we in onze mediatheek hebben bekijken.</p>
                         <form method="GET" action="ManageServlet">
                             <input class="center" type="submit" name="overzicht" value="Overzicht artikels">
                         </form>

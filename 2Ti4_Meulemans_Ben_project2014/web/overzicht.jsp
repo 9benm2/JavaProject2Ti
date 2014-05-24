@@ -7,6 +7,8 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" 
+    prefix="fn" %> 
 <%@page import="java.util.List"%>
 <%@page import="info.toegepaste.www.entity.Boek"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,7 +19,7 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mediatheek - home</title>
+        <title>Mediatheek - Overzicht artikels</title>
 
         <!-- Mobile Specific Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,13 +44,14 @@
     <body>
         <header class="clearfix centertext">
             <div class="container">
-                <h1>Mediatheek - Overzicht artikels</h1>
+                <a href="index.jsp"><h1>Mediatheek - Overzicht artikels</h1></a>
             </div>
         </header>
         <section>
             <div class="container">
                 <div class="row clearfix">
                     <div class="column half">
+                    <h2>Boeken</h2>
                         <div class="CSSTableGenerator" >
                             <table >
                                 <tr>
@@ -68,12 +71,46 @@
                                             <c:out value="${boek.titel}">
                                             </c:out>
                                         </td>
-                                        <td>
-                                            <c:out value="${boek.genre}">
+                                        <td class="lowercase">
+                                            <c:out value="${fn:toLowerCase(boek.genre)}">
                                             </c:out>
                                         </td>
                                         <td>
                                             <c:out value="${boek.jaar}">
+                                            </c:out>
+                                        </td>
+                                    </tr>            
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="column half">
+                    <h2>DVDs</h2>
+                        <div class="CSSTableGenerator" >
+                            <table >
+                                <tr>
+                                    <td>
+                                        Titel
+                                    </td>
+                                    <td >
+                                        Genre
+                                    </td>
+                                    <td>
+                                        Jaar
+                                    </td>
+                                </tr>
+                                <c:forEach var="dvd" items="${requestScope.dvds}">
+                                    <tr>
+                                        <td>
+                                            <c:out value="${dvd.titel}">
+                                            </c:out>
+                                        </td>
+                                        <td class="lowercase">
+                                            <c:out value="${fn:toLowerCase(dvd.genre)}">
+                                            </c:out>
+                                        </td>
+                                        <td>
+                                            <c:out value="${dvd.jaar}">
                                             </c:out>
                                         </td>
                                     </tr>            

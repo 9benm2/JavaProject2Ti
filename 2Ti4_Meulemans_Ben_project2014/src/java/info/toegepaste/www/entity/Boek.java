@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package info.toegepaste.www.entity;
 
 import java.io.Serializable;
@@ -16,21 +15,22 @@ import javax.persistence.NamedQuery;
  *
  * @author BTO-Ben
  */
-
-
 @NamedQueries({
     @NamedQuery(
-    name="Boek.GetAllBoeken", query="select b from Boek b")
+            name = "Boek.GetAllBoeken", query = "select b from Boek b"),
+    @NamedQuery(name = "Boek.GetByTitel", query = "SELECT b FROM Boek b WHERE b.titel = :titel")
 })
-
 
 @Entity
 @DiscriminatorValue("Boek")
 public class Boek extends Artikel implements Serializable {
+
     private String auteur;
     private int aantalpaginas;
-    public Boek(){
+
+    public Boek() {
     }
+
     public String getAuteur() {
         return auteur;
     }
