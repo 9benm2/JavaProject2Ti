@@ -11,6 +11,86 @@ oranje -> lichtgeel
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+body .lowercase {
+    text-transform: capitalize;
+}
+header{
+    background-color: #D4BCA7;
+}
+section{
+    background-color: #FFE097;
+    padding: 20px 5px;
+    min-height: 500px;
+}
+footer{
+    padding: 10px;
+    background-color: #9F7D67;
+    color: white;
+}
+.container {
+    margin: 0 auto;
+    max-width: 70rem;
+    width: 100%;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.alwayshalfcolumn{
+    float: left;
+    width: 50%;
+}
+.row{
+    //is default full width
+}
+.clearfix {
+    *zoom: 1;
+}
+/* Small screens (default) */
+html {
+    font-size: 100%;
+}
+img{
+    width: 100%;
+}
+.overzichtinput{
+    width: 70%;
+}
+.overzichtlabel{
+    display: inline-block;
+    width: 26%;
+}
+.overzichtinputhalf{
+    width: 70%;
+}
+.overzichtlabelhalf{
+    display: inline-block;
+    width: 26%;
+}
+/*=========================== usefull classes ===========================*/
+.centertext{
+    text-align: center;
+}
+.littlepadding{
+    padding-top: 5px;
+}
+input[type=submit].center{
+    width: 200px;
+    position: relative;
+    margin-left: -100px;
+    left:50%;
+}
+.rightalign{
+    text-align: left;
+}
+.center{
+    margin: 0 auto;
+}
+
 .CSSTableGenerator {
     margin:0px;padding:0px;
     width:100%;
@@ -106,69 +186,27 @@ oranje -> lichtgeel
 .CSSTableGenerator tr:first-child td:last-child{
     border-width:0px 0px 1px 1px;
 }
-body .lowercase {
-    text-transform: capitalize;
-}
-header{
-    background-color: #D4BCA7;
-}
-section{
-    background-color: #FFE097;
-    padding: 20px 5px;
-    min-height: 500px;
-}
-footer{
-    padding: 10px;
-    background-color: #9F7D67;
-    color: white;
-}
-.container {
-    margin: 0 auto;
-    max-width: 70rem;
-    width: 100%;
-}
-.clearfix:before,
-.clearfix:after {
-    content: " ";
-    display: table;
-}
-.clearfix:after {
-    clear: both;
-}
-.alwayshalfcolumn{
-    float: left;
-    width: 50%;
-}
-.row{
-    //is default full width
-}
-.clearfix {
-    *zoom: 1;
-}
-/* Small screens (default) */
-html {
-    font-size: 100%;
-}
-img{
-    width: 100%;
-}
-/*=========================== usefull classes ===========================*/
-.centertext{
-    text-align: center;
-}
-input[type=submit].center{
-    width: 200px;
-    position: relative;
-    margin-left: -100px;
-    left:50%;
-}
-.center{
-    margin: 0 auto;
-}
+
+
 /* Medium screens (640px) */
 @media (min-width: 40rem) {
     html {
         font-size: 112%;
+    }
+}
+
+/* Large screens (1024px) */
+@media (min-width: 64rem) {
+    .overzichtlabelhalf{
+        display: inline-block;
+        width: 16.6%;
+    }
+    .overzichtinputhalf{
+        display: inline-block;
+        width: 45%;
+    }
+    .rightalign{
+        text-align: right;
     }
     .column {
         float: left;
@@ -181,10 +219,6 @@ input[type=submit].center{
     .column.third { width: 33.3%; }
     .column.fourth { width: 24.95%; }
     .column.flow-opposite { float: right; }
-}
-
-/* Large screens (1024px) */
-@media (min-width: 64rem) {
     html { 
         font-size: 120%;
     }

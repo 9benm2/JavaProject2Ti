@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 
 /**
  *
@@ -74,10 +75,48 @@ public class ManageServlet extends HttpServlet {
                 List<DVD> dvds = q2.getResultList();
                 //als titel ingevuld is lijst tot die boeken/DVDs beperken
                 if (!request.getParameter("titel").toString().equals("")) {
-                    Query q = em.createNamedQuery("Boek.GetByTitel");
-                    q.setParameter("titel", "%" + request.getParameter("titel") + "%");
-                    boeken = q.getResultList();
+                    Query q3 = em.createNamedQuery("Boek.GetByTitel");
+                    q3.setParameter("titel", "%" + request.getParameter("titel") + "%");
+                    boeken = q3.getResultList();
+                    Query q4 = em.createNamedQuery("DVD.GetByTitel");
+                    q4.setParameter("titel", "%" + request.getParameter("titel") + "%");
+                    dvds = q4.getResultList();
                 }
+                //als genre geselecteerd is
+                if (!request.getParameter("genre").toString().equals("Alle")) {
+                    for (Iterator<Boek> it = boeken.iterator(); it.hasNext();) {
+                        Boek boek = it.next();
+                        //als het een ander genre is, verwijderen uit lijst
+                        if (!boek.getGenre().toString().equals(request.getParameter("genre"))) {
+                            it.remove();
+                        }
+                    }
+                    for (Iterator<DVD> it = dvds.iterator(); it.hasNext();) {
+                        DVD dvd = it.next();
+                        //als het een ander genre is, verwijderen uit lijst
+                        if (!dvd.getGenre().toString().equals(request.getParameter("genre"))) {
+                            it.remove();
+                        }
+                    }
+                }
+                //als jaar ingevuld is
+                if (!request.getParameter("jaar").toString().equals("")) {
+                    for (Iterator<Boek> it = boeken.iterator(); it.hasNext();) {
+                        Boek boek = it.next();
+                        //als het een ander jaar is, verwijderen uit lijst
+                        if (boek.getJaar() != Integer.parseInt(request.getParameter("jaar"))) {
+                            it.remove();
+                        }
+                    }
+                    for (Iterator<DVD> it = dvds.iterator(); it.hasNext();) {
+                        DVD dvd = it.next();
+                        //als het een ander jaar is, verwijderen uit lijst
+                        if (dvd.getJaar() != Integer.parseInt(request.getParameter("jaar"))) {
+                            it.remove();
+                        }
+                    }
+                }
+
                 request.setAttribute("boeken", boeken);
                 request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");

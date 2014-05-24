@@ -6,6 +6,7 @@
 
 
 
+<%@page import="info.toegepaste.www.entity.Genre"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" 
            prefix="fn" %> 
@@ -49,15 +50,40 @@
         </header>
         <section>
             <div class="container">
-                <div class="row clearfix">
-                    <div class="column full">
-                        <form method="GET" action="ManageServlet">
-                            <input type ="text" name="titel" value="">
-                            <input type="submit" name="filteren" value="Filteren">
-                        </form>
-
+                <form method="GET" action="ManageServlet">
+                    <div class="row clearfix">
+                        <div class="column third littlepadding">
+                            <label class="overzichtlabel" for="zoeken">Zoeken:</label>
+                            <input class="overzichtinput" id="zoeken" type ="text" name="titel" value="">
+                        </div>
+                        <div class="column third littlepadding">
+                            <label class="overzichtlabel" for="genre">Genre:</label>
+                            <select class="overzichtinput" name="genre" id="genre">
+                                <option>Alle</option>
+                                <%for (Genre genre : Genre.values()) {%>
+                                <option class="lowercase"><%=genre%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                        <div class="column third rightalign littlepadding">
+                            <label class="overzichtlabel" for="jaar">Jaar:</label>
+                            <input class="overzichtinput" type="text" name="jaar" id="jaar" value="">
+                        </div>
                     </div>
-                </div>
+                    <div class="row clearfix">
+                        <div class="column half littlepadding">
+                            <label class="overzichtlabelhalf" for="auteur">Auteur:</label>
+                            <input class="overzichtinputhalf" type="text" name="auteur" id="auteur" value="">
+                        </div>
+                        <div class="column half rightalign littlepadding">
+                            <label class="overzichtlabelhalf" for="regisseur">Regisseur:</label>
+                            <input class="overzichtinputhalf" type="text" name="regisseur" id="regisseur" value="">                            
+                        </div>
+                    </div>
+                    <div class="row clearfix littlepadding">
+                        <input class="center" type="submit" name="filteren" value="Filteren">
+                    </div>
+                </form>
                 <div class="row clearfix">
                     <div class="column half">
                         <h2>Boeken</h2>
