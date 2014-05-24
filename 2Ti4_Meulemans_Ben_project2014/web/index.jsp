@@ -46,7 +46,7 @@
                 <div class="row clearfix">
                     <div class="column full">
                         <form method="GET" action="ManageServlet">
-                            <input class="center" type="submit" name="boeken" value="Overzicht boeken">
+                            <input class="center" type="submit" name="overzicht" value="Overzicht artikels">
                         </form>
                     </div>
                 </div>

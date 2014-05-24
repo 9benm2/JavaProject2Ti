@@ -53,11 +53,16 @@ public class ManageServlet extends HttpServlet {
             //(zoek op in persistence.xml)
             //methode om alles aan te maken in commentaar na aanmaken
             //maakEntiteiten();
-            if (request.getParameter("boeken") != null) {
-                Query q = em.createNamedQuery("Boek.GetAllBoeken");
-                List<Boek> boeken = q.getResultList();
+            
+            //als op overzicht artikels is geklikt
+            if (request.getParameter("overzicht") != null) {
+                Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
+                List<Boek> boeken = q1.getResultList();
+                Query q2 = em.createNamedQuery("DVD.GetAllDvds");
+                List<DVD> dvds = q2.getResultList();
                 em.close();
                 request.setAttribute("boeken", boeken);
+                request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");
                 //eerst met if checken of titel ingevuld is, als dit is List<boek> boeken overschrijven met nieuwe lijst
                 

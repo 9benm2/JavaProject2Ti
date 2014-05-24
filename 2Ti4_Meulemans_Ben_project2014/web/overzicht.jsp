@@ -48,7 +48,7 @@
         <section>
             <div class="container">
                 <div class="row clearfix">
-                    <div class="column full">
+                    <div class="column half">
                         <div class="CSSTableGenerator" >
                             <table >
                                 <tr>
@@ -56,10 +56,10 @@
                                         Titel
                                     </td>
                                     <td >
-                                        Title 2
+                                        Genre
                                     </td>
                                     <td>
-                                        Title 3
+                                        Jaar
                                     </td>
                                 </tr>
                                 <c:forEach var="boek" items="${requestScope.boeken}">
@@ -69,10 +69,12 @@
                                             </c:out>
                                         </td>
                                         <td>
-                                            Row 1
+                                            <c:out value="${boek.genre}">
+                                            </c:out>
                                         </td>
                                         <td>
-                                            Row 1
+                                            <c:out value="${boek.jaar}">
+                                            </c:out>
                                         </td>
                                     </tr>            
                                 </c:forEach>

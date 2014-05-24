@@ -12,11 +12,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author BTO-Ben
  */
+@NamedQueries({
+    @NamedQuery(
+    name="DVD.GetAllDvds", query="select d from DVD d")
+})
+
+
 @Entity
 @DiscriminatorValue("DVD")
 public class DVD extends Artikel implements Serializable {
