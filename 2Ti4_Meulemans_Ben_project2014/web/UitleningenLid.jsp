@@ -6,6 +6,7 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -103,8 +104,7 @@
                                             </c:out>
                                         </td>
                                         <td>
-                                            <c:out value="${uitlening.uitleendatum}">
-                                            </c:out>
+                                            <fmt:formatDate value="${uitlening.uitleenDatum.time}" type="date" pattern="dd/MM/yyyy"/>
                                         </td>
                                     </tr>            
                                 </c:forEach>
