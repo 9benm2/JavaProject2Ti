@@ -22,6 +22,9 @@ section{
     padding: 20px 5px;
     min-height: 500px;
 }
+.hidden{
+    display:none;
+}
 footer{
     padding: 10px;
     background-color: #9F7D67;

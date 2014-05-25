@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package info.toegepaste.www.entity;
 
 import java.io.Serializable;
@@ -29,18 +28,17 @@ import javax.persistence.OneToMany;
  * @author BTO-Ben
  */
 @NamedQueries({
-    @NamedQuery(
-    name="Artikel.GetAllArtikels", query="select a from Artikel a")
+    @NamedQuery(name = "Artikel.GetAllArtikels", query = "select a from Artikel a"),
+    @NamedQuery(name = "Artikel.GetArtikelById", query = "select a from Artikel a where a.id = :id")
 })
 
-
-
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn (name = "ARTIKELTYPE", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "ARTIKELTYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Artikel")
 
 @Entity
 public class Artikel implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,13 +47,13 @@ public class Artikel implements Serializable {
     private int jaar;
     @Enumerated(EnumType.STRING)
     private Genre genre;
-    @OneToMany(mappedBy="artikel")
+    @OneToMany(mappedBy = "artikel")
     private List<Uitlening> uitleningen = new ArrayList<>();
 
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -116,5 +114,5 @@ public class Artikel implements Serializable {
     public String toString() {
         return "info.toegepaste.www.entity.Artikel[ id=" + id + " ]";
     }
-    
+
 }

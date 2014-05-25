@@ -36,7 +36,9 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
+                $('select option[value="' + $("#genrewaarde").html() + '"]').attr("selected","selected");
                 $("input[type=submit], button").button();
+                $('option[value=' + $("#genrewaarde").html() + ']').attr("selected", "selected");
             });
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,39 +47,41 @@
     <body>
         <header class="clearfix centertext">
             <div class="container">
-                <a href="index.jsp"><h1>Mediatheek - Overzicht artikels</h1></a>
+                <h1>Mediatheek applicatie</h1>
             </div>
         </header>
+        <div class="hidden"><span id="genrewaarde"><c:out value="${requestScope.genre}" /></span></div>
         <section>
             <div class="container">
                 <form method="GET" action="ManageServlet">
                     <div class="row clearfix">
                         <div class="column third littlepadding">
                             <label class="overzichtlabel" for="zoeken">Zoeken:</label>
-                            <input class="overzichtinput" id="zoeken" type ="text" name="titel" value="">
+                            <input class="overzichtinput" id="zoeken" type ="text" name="titel" value="<c:out value="${requestScope.titel}" />">
                         </div>
                         <div class="column third littlepadding">
                             <label class="overzichtlabel" for="genre">Genre:</label>
                             <select class="overzichtinput" name="genre" id="genre">
                                 <option>Alle</option>
-                                <%for (Genre genre : Genre.values()) {%>
-                                <option class="lowercase"><%=genre%></option>
+                                <%for (Genre genre : Genre.values()) {
+                                %>
+                                <option class="lowercase" value="<%=genre%>"><%=genre%></option>
                                 <%}%>
                             </select>
                         </div>
                         <div class="column third rightalign littlepadding">
                             <label class="overzichtlabel" for="jaar">Jaar:</label>
-                            <input class="overzichtinput" type="text" name="jaar" id="jaar" value="">
+                            <input class="overzichtinput" type="text" name="jaar" id="jaar" value="<c:out value="${requestScope.jaar}"/>">
                         </div>
                     </div>
                     <div class="row clearfix">
                         <div class="column half littlepadding">
                             <label class="overzichtlabelhalf" for="auteur">Auteur:</label>
-                            <input class="overzichtinputhalf" type="text" name="auteur" id="auteur" value="">
+                            <input class="overzichtinputhalf" type="text" name="auteur" id="auteur" value="<c:out value="${requestScope.auteur}"/>">
                         </div>
                         <div class="column half rightalign littlepadding">
                             <label class="overzichtlabelhalf" for="regisseur">Regisseur:</label>
-                            <input class="overzichtinputhalf" type="text" name="regisseur" id="regisseur" value="">                            
+                            <input class="overzichtinputhalf" type="text" name="regisseur" id="regisseur" value="<c:out value="${requestScope.regisseur}"/>">                            
                         </div>
                     </div>
                     <div class="row clearfix littlepadding">
@@ -97,17 +101,24 @@
                                         Genre
                                     </td>
                                     <td>
+                                        Auteur
+                                    </td>
+                                    <td>
                                         Jaar
                                     </td>
                                 </tr>
                                 <c:forEach var="boek" items="${requestScope.boeken}">
                                     <tr>
                                         <td>
-                                            <c:out value="${boek.titel}">
-                                            </c:out>
+                                            <a href="ManageServlet?detail=boek&id=${boek.id}">
+                                                <c:out value="${boek.titel}"/></a>
                                         </td>
                                         <td class="lowercase">
                                             <c:out value="${fn:toLowerCase(boek.genre)}">
+                                            </c:out>
+                                        </td>
+                                        <td>
+                                            <c:out value="${boek.auteur}">
                                             </c:out>
                                         </td>
                                         <td>
@@ -131,17 +142,24 @@
                                         Genre
                                     </td>
                                     <td>
+                                        Regisseur
+                                    </td>
+                                    <td>
                                         Jaar
                                     </td>
                                 </tr>
                                 <c:forEach var="dvd" items="${requestScope.dvds}">
                                     <tr>
                                         <td>
-                                            <c:out value="${dvd.titel}">
-                                            </c:out>
+                                            <a href="dvd.jsp?id=${dvd.id}">
+                                                <c:out value="${dvd.titel}"/></a>
                                         </td>
                                         <td class="lowercase">
                                             <c:out value="${fn:toLowerCase(dvd.genre)}">
+                                            </c:out>
+                                        </td>
+                                        <td>
+                                            <c:out value="${dvd.regisseur}">
                                             </c:out>
                                         </td>
                                         <td>

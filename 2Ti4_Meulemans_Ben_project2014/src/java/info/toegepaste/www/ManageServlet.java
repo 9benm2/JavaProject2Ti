@@ -68,6 +68,16 @@ public class ManageServlet extends HttpServlet {
                 //eerst met if checken of titel ingevuld is, als dit is List<boek> boeken overschrijven met nieuwe lijst
                 //als de andere dingen ingevuld zin filteren door de items die niet voldoen te verwijderen uit de lijst met remove
             }
+            if (request.getParameter("detail") != null) {
+                Query q = em.createNamedQuery("Artikel.GetArtikelById");
+                q.setParameter("id", Long.parseLong(request.getParameter("id")));
+
+                Object artikel = q.getSingleResult();
+                em.close();
+                request.setAttribute("artikel", artikel);
+                rd = request.getRequestDispatcher("detail.jsp");
+            }
+
             if (request.getParameter("filteren") != null) {
                 Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
                 List<Boek> boeken = q1.getResultList();
@@ -75,6 +85,8 @@ public class ManageServlet extends HttpServlet {
                 List<DVD> dvds = q2.getResultList();
                 //als titel ingevuld is lijst tot die boeken/DVDs beperken
                 if (!request.getParameter("titel").toString().equals("")) {
+                    //titel meegeven om terug als waarde in tekstvak in te stellen
+                    request.setAttribute("titel", request.getParameter("titel"));
                     Query q3 = em.createNamedQuery("Boek.GetByTitel");
                     q3.setParameter("titel", "%" + request.getParameter("titel") + "%");
                     boeken = q3.getResultList();
@@ -84,6 +96,8 @@ public class ManageServlet extends HttpServlet {
                 }
                 //als genre geselecteerd is
                 if (!request.getParameter("genre").toString().equals("Alle")) {
+                    //genre meegeven om terug als waarde in dropdown in te stellen
+                    request.setAttribute("genre", request.getParameter("genre"));
                     for (Iterator<Boek> it = boeken.iterator(); it.hasNext();) {
                         Boek boek = it.next();
                         //als het een ander genre is, verwijderen uit lijst
@@ -101,6 +115,8 @@ public class ManageServlet extends HttpServlet {
                 }
                 //als jaar ingevuld is
                 if (!request.getParameter("jaar").toString().equals("")) {
+                    //jaar meegeven om terug als waarde in tekstvak in te stellen
+                    request.setAttribute("jaar", request.getParameter("jaar"));
                     for (Iterator<Boek> it = boeken.iterator(); it.hasNext();) {
                         Boek boek = it.next();
                         //als het een ander jaar is, verwijderen uit lijst
@@ -116,7 +132,30 @@ public class ManageServlet extends HttpServlet {
                         }
                     }
                 }
-
+                //als auteur ingevuld is
+                if (!request.getParameter("auteur").toString().equals("")) {
+                    //auteur meegeven om terug als waarde in dropdown in te stellen
+                    request.setAttribute("auteur", request.getParameter("auteur"));
+                    for (Iterator<Boek> it = boeken.iterator(); it.hasNext();) {
+                        Boek boek = it.next();
+                        //als het boek niet van de auteur is, verwijderen uit lijst
+                        if (!boek.getAuteur().equals(request.getParameter("auteur"))) {
+                            it.remove();
+                        }
+                    }
+                }
+                if (!request.getParameter("regisseur").toString().equals("")) {
+                    //auteur regisseur om terug als waarde in dropdown in te stellen
+                    request.setAttribute("regisseur", request.getParameter("regisseur"));
+                    for (Iterator<DVD> it = dvds.iterator(); it.hasNext();) {
+                        DVD dvd = it.next();
+                        //als de dvd niet van de regisseur is, verwijderen uit lijst
+                        if (!dvd.getRegisseur().equals(request.getParameter("regisseur"))) {
+                            it.remove();
+                        }
+                    }
+                }
+                em.close();
                 request.setAttribute("boeken", boeken);
                 request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");
