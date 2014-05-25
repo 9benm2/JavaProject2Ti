@@ -62,8 +62,8 @@
                                 <input class="aanmeldinput" type="submit" value="Afmelden" name="afmelden"/>
                             </c:if>
                             <c:if test="${sessionScope.lid == null}">
-                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/>
-                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/>
+                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/> <br>
+                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/><br>
                                 <input class="aanmeldinput" type="submit" value="Registreren" name="nieuwLid"/>
                             </c:if>
                         </div>
@@ -79,11 +79,26 @@
                         </div>
                         <div class="melding">
                         </div>
-                    <c:if test="${sessionScope.artikel != null}">
-                            <a class="center button" href="ManageServlet?detail=${sessionScope.type.toLowerCase()}&id=${sessionScope.artikel.id}">Naar laatst bezocht artikel</a>
+                        <c:if test="${sessionScope.lid.familienaam == 'password'}">
+                            <div class="row clearfix">
+                                <form method="GET" action="ManageServlet">
+                                    <div class="column third">
+                                        <input class="center" type="submit" name="beheerArtikels" value="Beheer artikels"/>
+                                    </div>
+                                    <div class="column third">
+                                        <input class="center" type="submit" name="beheerLeden" value="Beheer leden"/>
+                                    </div>
+                                    <div class="column third">
+                                        <input class="center" type="submit" name="beheerUitleningen" value="Beheer uitleningen"/>
 
+                                    </div>
+                                </form>
+                            </div>
                         </c:if>
-                        <p>Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels die we in onze mediatheek hebben bekijken.</p>
+                        <c:if test="${sessionScope.artikel != null}">
+                            <a class="center button" href="ManageServlet?detail=${sessionScope.type.toLowerCase()}&id=${sessionScope.artikel.id}">Naar laatst bezocht artikel</a>
+                        </c:if>
+                        <p>Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels in onze mediatheek bekijken.</p>
                         <form method="GET" action="ManageServlet">
                             <input class="center" type="submit" name="overzicht" value="Overzicht artikels">
                         </form>

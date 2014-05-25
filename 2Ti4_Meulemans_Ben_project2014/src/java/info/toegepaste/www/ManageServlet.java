@@ -89,6 +89,15 @@ public class ManageServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("detail.jsp");
             }
             if (request.getParameter("aanmelden") != null) {
+                if (request.getParameter("lidnummer").equals("admin")) {
+                    Lid lid = new Lid();
+                    lid.setVoornaam("admin");
+                    lid.setFamilienaam("password");
+                    rd = request.getRequestDispatcher("index.jsp");
+                    request.setAttribute("melding", "Aangemeld als admin.");
+                    session.setAttribute("lid", lid);
+                    rd.forward(request, response);
+                }
                 Query q = em.createNamedQuery("Lid.GetLidByLidnummer");
                 int lidnummer = 0;
                 try {
@@ -114,7 +123,20 @@ public class ManageServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("index.jsp");
             }
             if (request.getParameter("uitlenen") != null) {
-
+                Uitlening uitlening = new Uitlening();
+                uitlening.setLid((Lid) session.getAttribute("lid"));
+                Artikel artikel = (Artikel) session.getAttribute("artikel");
+                uitlening.setArtikel(artikel);
+                GregorianCalendar nu = new GregorianCalendar();
+                uitlening.setUitleenDatum(nu);
+                tx.begin();
+                em.persist(uitlening);
+                tx.commit();
+                em.close();
+                request.setAttribute("melding", session.getAttribute("type").toString() + " met titel " + artikel.getTitel() + " is in uw uitleningen opgenomen.");
+                session.removeAttribute("artikel");
+                session.removeAttribute("type");
+                rd = request.getRequestDispatcher("index.jsp");
             }
             if (request.getParameter("nieuwLid") != null) {
                 //artikel dat hij wenste uit te lenen in session zetten
