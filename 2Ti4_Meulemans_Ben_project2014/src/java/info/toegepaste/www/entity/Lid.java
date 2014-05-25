@@ -21,9 +21,10 @@ import javax.persistence.OneToMany;
  * @author BTO-Ben
  */
 @NamedQueries({
-    @NamedQuery(name = "Lid.GetAllLeden", query = "select l from Lid l"),
+    @NamedQuery(name = "Lid.GetAllLeden", query = "select l from Lid l order by l.email"),
     @NamedQuery(name = "Lid.GetMaxLidnummer", query = "select max (l.lidnummer) from Lid l"),
-    @NamedQuery(name = "Lid.GetLidByLidnummer", query = "select l from Lid l where l.lidnummer = :lidnummer")
+    @NamedQuery(name = "Lid.GetLidByLidnummer", query = "select l from Lid l where l.lidnummer = :lidnummer"),
+    @NamedQuery(name = "Lid.GetLidById", query = "select l from Lid l where l.id = :id")
 })
 @Entity
 public class Lid implements Serializable {

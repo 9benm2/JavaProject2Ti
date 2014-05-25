@@ -103,8 +103,9 @@
                                             </c:out>
                                         </td>
                                         <td>
-                                    <fmt:formatDate type="date" value="${uitlening.uitleendatum}" />
-                                    </td>
+                                            <c:out value="${uitlening.uitleendatum}">
+                                            </c:out>
+                                        </td>
                                     </tr>            
                                 </c:forEach>
                             </table>

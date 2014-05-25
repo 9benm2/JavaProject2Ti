@@ -97,7 +97,8 @@
                         <c:if test="${sessionScope.artikel != null}">
                             <a class="center button" href="ManageServlet?detail=${sessionScope.type.toLowerCase()}&id=${sessionScope.artikel.id}">Naar laatst bezocht artikel</a>
                         </c:if>
-                        <p>Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels in onze mediatheek bekijken.</p>
+                        <p class="centertext">Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels in onze mediatheek bekijken.</p>
+                        <p class="centertext">Rechts bovenaan kan u inloggen met uw lidnummer.</p>
                         <form method="GET" action="ManageServlet">
                             <input class="center" type="submit" name="overzicht" value="Overzicht artikels">
                         </form>

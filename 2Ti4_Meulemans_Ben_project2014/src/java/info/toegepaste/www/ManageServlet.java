@@ -5,6 +5,7 @@
  */
 package info.toegepaste.www;
 
+import com.sun.faces.facelets.compiler.UIText;
 import info.toegepaste.www.entity.*;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,13 +62,59 @@ public class ManageServlet extends HttpServlet {
             if (request.getParameter("beheerLeden") != null) {
                 Query q = em.createNamedQuery("Lid.GetAllLeden");
                 List<Lid> leden = q.getResultList();
-                
+                request.setAttribute("leden", leden);
+                rd = request.getRequestDispatcher("beheerLeden.jsp");
+            }
+            if (request.getParameter("verwijderLid") != null) {
+                EntityTransaction et = em.getTransaction();
+                et.begin();
+                long lidId = Long.parseLong(request.getParameter("lidId"));
+                Lid verwijderLid = em.find(Lid.class, lidId);
+                em.remove(verwijderLid);
+                et.commit();
+                request.setAttribute("melding", "Het lid is verwijderd.");
+                Query q = em.createNamedQuery("Lid.GetAllLeden");
+                List<Lid> leden = q.getResultList();
+                request.setAttribute("leden", leden);
+                em.close();
+                rd = request.getRequestDispatcher("beheerLeden.jsp");
+            }
+            if (request.getParameter("opslaanLid") != null) {
+                EntityTransaction et = em.getTransaction();
+                et.begin();
+                long lidId = Long.parseLong(request.getParameter("id"));
+                Lid wijzigLid = em.find(Lid.class, lidId);
+                wijzigLid.setEmail(request.getParameter("email"));
+                wijzigLid.setVoornaam(request.getParameter("voornaam"));
+                wijzigLid.setFamilienaam(request.getParameter("familienaam"));
+                et.commit();
+                request.setAttribute("melding", "De wijzigingen zijn aangepast.");
+                Query q = em.createNamedQuery("Lid.GetAllLeden");
+                List<Lid> leden = q.getResultList();
+                request.setAttribute("leden", leden);
+                em.close();
+                rd = request.getRequestDispatcher("beheerLeden.jsp");
+            }
+            if (request.getParameter("uitleningenLidId") != null) {
+                long lidId = Long.parseLong(request.getParameter("uitleningenLidId"));
+                Query q = em.createNamedQuery("Uitlening.GetUitleningenByLidId");
+                q.setParameter("lidId", lidId);
+                List<Uitlening> uitleningen = q.getResultList();
+                request.setAttribute("uitleningen", uitleningen);
+                rd = request.getRequestDispatcher("UitleningenLid.jsp");
             }
             if (request.getParameter("beheerArtikels") != null) {
-                
+
             }
             if (request.getParameter("beheerUitleningen") != null) {
-                
+
+            }
+            if (request.getParameter("adminLidId") != null) {
+                Query q = em.createNamedQuery("Lid.GetLidById");
+                q.setParameter("id", Long.parseLong(request.getParameter("adminLidId")));
+                Lid lid = (Lid) q.getSingleResult();
+                request.setAttribute("lid", lid);
+                rd = request.getRequestDispatcher("adminLid.jsp");
             }
             if (request.getParameter("overzicht") != null) {
                 Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
