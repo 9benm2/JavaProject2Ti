@@ -14,7 +14,7 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mediatheek - Nieuw lid</title>
+        <title>Mediatheek - home</title>
 
         <!-- Mobile Specific Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,12 +30,8 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
-                $("input[type=submit], button").button();
+                $("input[type=submit], button, .button").button();
             });
-            function goBack()
-            {
-                window.history.go(-1);
-            }
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
@@ -65,20 +61,6 @@
         <section>
             <div class="container">
                 <div class="row clearfix">
-                    <div class="column third">
-                        <button id="overzichtlink" class="button" onclick="goBack()">Terug</button>
-                    </div>
-                    <div class="column two-thirds">
-                        <h2>Registratie nieuw lid</h2>
-                        <form method="GET" action="ManageServlet">
-                            <label for="email" class="littlepadding detaillabel">E-mail</label><input class="mediuminput" required type="text" id="email" name="email"/><br>
-                            <label for="voornaam" class="littlepadding detaillabel">Voornaam</label><input class="mediuminput" required type="text" id="voornaam" name="voornaam"/><br>
-                            <label for="familienaam" class="littlepadding detaillabel">Familienaam</label><input class="mediuminput" required type="text" id="familienaam" name="familienaam"/><br>
-                            <div class="littlepadding">
-                                <label class="detaillabel"></label><input class="mediuminput" type="submit" value="Registreren" name="registreren"/>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         </section>

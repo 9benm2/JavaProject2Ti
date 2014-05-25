@@ -57,8 +57,8 @@
                                 <input class="aanmeldinput" type="submit" value="Afmelden" name="afmelden"/>
                             </c:if>
                             <c:if test="${sessionScope.lid == null}">
-                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/>
-                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/>
+                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/><br>
+                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/><br>
                                 <input class="aanmeldinput" type="submit" value="Registreren" name="nieuwLid"/>
                             </c:if>
                         </div>

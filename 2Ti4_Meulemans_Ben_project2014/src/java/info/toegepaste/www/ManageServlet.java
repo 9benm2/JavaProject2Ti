@@ -58,12 +58,22 @@ public class ManageServlet extends HttpServlet {
             //maakEntiteiten();
 
             //als op overzicht artikels is geklikt
+            if (request.getParameter("beheerLeden") != null) {
+                Query q = em.createNamedQuery("Lid.GetAllLeden");
+                List<Lid> leden = q.getResultList();
+                
+            }
+            if (request.getParameter("beheerArtikels") != null) {
+                
+            }
+            if (request.getParameter("beheerUitleningen") != null) {
+                
+            }
             if (request.getParameter("overzicht") != null) {
                 Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
                 List<Boek> boeken = q1.getResultList();
                 Query q2 = em.createNamedQuery("DVD.GetAllDvds");
                 List<DVD> dvds = q2.getResultList();
-                em.close();
                 request.setAttribute("boeken", boeken);
                 request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");
@@ -139,7 +149,7 @@ public class ManageServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("index.jsp");
             }
             if (request.getParameter("nieuwLid") != null) {
-                //artikel dat hij wenste uit te lenen in session zetten
+                session.setAttribute("lid", null);
                 rd = request.getRequestDispatcher("nieuwLid.jsp");
             }
             if (request.getParameter("registreren") != null) {
@@ -237,7 +247,6 @@ public class ManageServlet extends HttpServlet {
                         }
                     }
                 }
-                em.close();
                 request.setAttribute("boeken", boeken);
                 request.setAttribute("dvds", dvds);
                 rd = request.getRequestDispatcher("overzicht.jsp");

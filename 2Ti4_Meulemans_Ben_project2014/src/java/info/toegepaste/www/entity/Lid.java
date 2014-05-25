@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package info.toegepaste.www.entity;
 
 import java.io.Serializable;
@@ -22,11 +21,13 @@ import javax.persistence.OneToMany;
  * @author BTO-Ben
  */
 @NamedQueries({
+    @NamedQuery(name = "Lid.GetAllLeden", query = "select l from Lid l"),
     @NamedQuery(name = "Lid.GetMaxLidnummer", query = "select max (l.lidnummer) from Lid l"),
     @NamedQuery(name = "Lid.GetLidByLidnummer", query = "select l from Lid l where l.lidnummer = :lidnummer")
 })
 @Entity
 public class Lid implements Serializable {
+
     @OneToMany(mappedBy = "lid")
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,8 +39,7 @@ public class Lid implements Serializable {
     private String email;
     @OneToMany(mappedBy = "lid")
     private List<Uitlening> uitleningen = new ArrayList<>();
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -112,5 +112,5 @@ public class Lid implements Serializable {
     public String toString() {
         return "info.toegepaste.www.entity.Lid[ id=" + id + " ]";
     }
-    
+
 }
