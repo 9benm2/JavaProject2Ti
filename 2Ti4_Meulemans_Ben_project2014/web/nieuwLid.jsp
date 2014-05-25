@@ -5,8 +5,6 @@
 --%>
 
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +13,7 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mediatheek - home</title>
+        <title>Mediatheek - Nieuw lid</title>
 
         <!-- Mobile Specific Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,32 +29,24 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
-                $("input[type=submit], button, .button").button();
-                if ("<c:out value="${fout}"></c:out>" !== "") {
-                    $(".fout").show();
-                    $(".fout").html("<c:out value="${fout}"></c:out>");
-                } else {
-                    $(".fout").hide();
-                }
-                if ("<c:out value="${melding}"></c:out>" !== "") {
-                    $(".melding").show();
-                    $(".melding").html("<c:out value="${melding}"></c:out>");
-                } else {
-                    $(".melding").hide();
-                }
+                $("input[type=submit], button").button();
             });
-            </script>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        </head>
-        <body>
-            <header class="clearfix centertext">
-                <div class="container">
-                    <div class="column two-thirds">
-                        <h1>Mediatheek Applicatie</h1>
-                    </div>
-                    <div class="column third">
-                        <form method="GET" action="ManageServlet">
-                            <div class="aanmeldpadding">
+            function goBack()
+            {
+                window.history.go(-1);
+            }
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <header class="clearfix centertext">
+            <div class="container">
+                <div class="column two-thirds">
+                    <h1>Mediatheek Applicatie</h1>
+                </div>
+                <div class="column third">
+                    <form method="GET" action="ManageServlet">
+                        <div class="aanmeldpadding">
                             <c:if test="${sessionScope.lid != null}">
                                 <label>Welkom ${sessionScope.lid.voornaam}</label> <br>
                                 <input class="aanmeldinput" type="submit" value="Afmelden" name="afmelden"/>
@@ -74,18 +64,18 @@
         <section>
             <div class="container">
                 <div class="row clearfix">
-                    <div class="column full">
-                        <div class="fout">
-                        </div>
-                        <div class="melding">
-                        </div>
-                    <c:if test="${sessionScope.artikel != null}">
-                            <a class="center button" href="ManageServlet?detail=${sessionScope.type.toLowerCase()}&id=${sessionScope.artikel.id}">Naar laatst bezocht artikel</a>
-
-                        </c:if>
-                        <p>Welkom op de uitleen applicatie van de mediatheek. Via onderstaande knop kan u alle artikels die we in onze mediatheek hebben bekijken.</p>
+                    <div class="column third">
+                        <button id="overzichtlink" class="button" onclick="goBack()">Terug naar artikel</button>
+                    </div>
+                    <div class="column two-thirds">
+                        <h2>Registratie nieuw lid</h2>
                         <form method="GET" action="ManageServlet">
-                            <input class="center" type="submit" name="overzicht" value="Overzicht artikels">
+                            <label for="email" class="littlepadding detaillabel">E-mail</label><input class="mediuminput" type="text" id="email" name="email"/><br>
+                            <label for="voornaam" class="littlepadding detaillabel">Voornaam</label><input class="mediuminput" type="text" id="voornaam" name="voornaam"/><br>
+                            <label for="familienaam" class="littlepadding detaillabel">Familienaam</label><input class="mediuminput" type="text" id="familienaam" name="familienaam"/><br>
+                            <div class="littlepadding">
+                                <label class="detaillabel"></label><input class="mediuminput" type="submit" value="Registreren" name="registreren"/>
+                            </div>
                         </form>
                     </div>
                 </div>

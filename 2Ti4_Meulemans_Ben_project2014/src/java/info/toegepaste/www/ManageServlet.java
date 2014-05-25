@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,6 +45,7 @@ public class ManageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         EntityManagerFactory emf = null;
+        HttpSession session = request.getSession(true);
 
         try {
             RequestDispatcher rd = null;
@@ -74,17 +76,68 @@ public class ManageServlet extends HttpServlet {
                     Query q = em.createNamedQuery("DVD.GetDvdById");
                     q.setParameter("id", Long.parseLong(request.getParameter("id")));
                     Object artikel = q.getSingleResult();
-                    request.setAttribute("artikel", artikel);
+                    session.setAttribute("type", "DVD");
+                    session.setAttribute("artikel", artikel);
                 } else {
                     Query q = em.createNamedQuery("Boek.GetBoekById");
                     q.setParameter("id", Long.parseLong(request.getParameter("id")));
                     Object artikel = q.getSingleResult();
-                    request.setAttribute("artikel", artikel);
+                    session.setAttribute("type", "Boek");
+                    session.setAttribute("artikel", artikel);
                 }
                 em.close();
                 rd = request.getRequestDispatcher("detail.jsp");
             }
+            if (request.getParameter("aanmelden") != null) {
+                Query q = em.createNamedQuery("Lid.GetLidByLidnummer");
+                int lidnummer = 0;
+                try {
+                    lidnummer = Integer.parseInt(request.getParameter("lidnummer"));
+                } catch (NumberFormatException e) {
+                    lidnummer = 0;
+                }
+                q.setParameter("lidnummer", lidnummer);
+                List<Lid> leden = q.getResultList();
+                if (leden.isEmpty()) {
+                    request.setAttribute("fout", "Dit lidnummer is foutief");
+                } else {
+                    Lid lid = leden.get(0);
+                    session.setAttribute("lid", lid);
+                }
+                rd = request.getRequestDispatcher("index.jsp");
+            }
+            if (request.getParameter("afmelden") != null) {
+                session.removeAttribute("lid");
+                session.removeAttribute("artikel");
+                session.removeAttribute("type");
+                request.setAttribute("melding", "Afgemeld.");
+                rd = request.getRequestDispatcher("index.jsp");
+            }
+            if (request.getParameter("uitlenen") != null) {
 
+            }
+            if (request.getParameter("nieuwLid") != null) {
+                //artikel dat hij wenste uit te lenen in session zetten
+                rd = request.getRequestDispatcher("nieuwLid.jsp");
+            }
+            if (request.getParameter("registreren") != null) {
+                Lid lid = new Lid();
+                lid.setEmail(request.getParameter("email"));
+                lid.setFamilienaam(request.getParameter("familienaam"));
+                lid.setVoornaam(request.getParameter("voornaam"));
+                Query q = em.createNamedQuery("Lid.GetMaxLidnummer");
+                Integer lidnummer = (Integer) q.getSingleResult();
+                lid.setLidnummer(lidnummer + 1);
+                tx.begin();
+                em.persist(lid);
+                tx.commit();
+                em.close();
+                //lid in sessie steken
+                session.setAttribute("lid", lid);
+                request.setAttribute("melding", "Succesvol geregistreerd. U bent nu aangemeld. Uw lidnummer is " + lid.getLidnummer() + ". Onthoudt dit nummer goed, want u heeft dit nodig om de volgende keer aan te melden.");
+                //doorsturen naar melding met knop verder gaan met uitlening
+                rd = request.getRequestDispatcher("index.jsp");
+            }
             if (request.getParameter("filteren") != null) {
                 Query q1 = em.createNamedQuery("Boek.GetAllBoeken");
                 List<Boek> boeken = q1.getResultList();

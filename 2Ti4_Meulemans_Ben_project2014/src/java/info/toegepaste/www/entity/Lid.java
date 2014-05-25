@@ -13,12 +13,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
  *
  * @author BTO-Ben
  */
+@NamedQueries({
+    @NamedQuery(name = "Lid.GetMaxLidnummer", query = "select max (l.lidnummer) from Lid l"),
+    @NamedQuery(name = "Lid.GetLidByLidnummer", query = "select l from Lid l where l.lidnummer = :lidnummer")
+})
 @Entity
 public class Lid implements Serializable {
     @OneToMany(mappedBy = "lid")

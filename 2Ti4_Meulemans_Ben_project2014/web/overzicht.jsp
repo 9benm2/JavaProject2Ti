@@ -8,8 +8,7 @@
 
 <%@page import="info.toegepaste.www.entity.Genre"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" 
-           prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@page import="java.util.List"%>
 <%@page import="info.toegepaste.www.entity.Boek"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -36,7 +35,7 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
-                $('select option[value="' + $("#genrewaarde").html() + '"]').attr("selected","selected");
+                $('select option[value="' + $("#genrewaarde").html() + '"]').attr("selected", "selected");
                 $("input[type=submit], button").button();
                 $('option[value=' + $("#genrewaarde").html() + ']').attr("selected", "selected");
             });
@@ -47,7 +46,24 @@
     <body>
         <header class="clearfix centertext">
             <div class="container">
-                <h1>Mediatheek applicatie</h1>
+                <div class="column two-thirds">
+                    <h1>Mediatheek Applicatie</h1>
+                </div>
+                <div class="column third">
+                    <form method="GET" action="ManageServlet">
+                        <div class="aanmeldpadding">
+                            <c:if test="${sessionScope.lid != null}">
+                                <label>Welkom ${sessionScope.lid.voornaam}</label> <br>
+                                <input class="aanmeldinput" type="submit" value="Afmelden" name="afmelden"/>
+                            </c:if>
+                            <c:if test="${sessionScope.lid == null}">
+                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/>
+                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/>
+                                <input class="aanmeldinput" type="submit" value="Registreren" name="nieuwLid"/>
+                            </c:if>
+                        </div>
+                    </form>
+                </div>
             </div>
         </header>
         <div class="hidden"><span id="genrewaarde"><c:out value="${requestScope.genre}" /></span></div>
@@ -61,11 +77,11 @@
                         </div>
                         <div class="column third littlepadding">
                             <label class="overzichtlabel" for="genre">Genre:</label>
-                            <select class="overzichtinput" name="genre" id="genre">
+                            <select class="overzichtinput lowercase" name="genre" id="genre">
                                 <option>Alle</option>
                                 <%for (Genre genre : Genre.values()) {
                                 %>
-                                <option class="lowercase" value="<%=genre%>"><%=genre%></option>
+                                <option class="lowercase" value="<%=genre%>"><%=genre.toString().toLowerCase()%></option>
                                 <%}%>
                             </select>
                         </div>

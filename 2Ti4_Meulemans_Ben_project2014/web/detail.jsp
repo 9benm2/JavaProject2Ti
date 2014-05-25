@@ -5,6 +5,8 @@
 --%>
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,28 +31,84 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
-                $("input[type=submit], button").button();
+                $("input[type=submit], button, .button").button();
             });
+            function goBack()
+            {
+                window.history.go(-1);
+            }
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
     </head>
     <body>
         <header class="clearfix centertext">
             <div class="container">
-                <h1>Mediatheek applicatie</h1>
+                <div class="column two-thirds">
+                    <h1>Mediatheek Applicatie</h1>
+                </div>
+                <div class="column third">
+                    <form method="GET" action="ManageServlet">
+                        <div class="aanmeldpadding">
+                            <c:if test="${sessionScope.lid != null}">
+                                <label>Welkom ${sessionScope.lid.voornaam}</label> <br>
+                                <input class="aanmeldinput" type="submit" value="Afmelden" name="afmelden"/>
+                            </c:if>
+                            <c:if test="${sessionScope.lid == null}">
+                                <input class="aanmeldinput littlebotmargin" type="text" name="lidnummer" placeholder="Lidnummer"/>
+                                <input class="aanmeldinput" type="submit" value="Aanmelden" name="aanmelden"/>
+                                <input class="aanmeldinput" type="submit" value="Registreren" name="nieuwLid"/>
+                            </c:if>
+                        </div>
+                    </form>
+                </div>
             </div>
         </header>
         <section>
             <div class="container">
                 <div class="row clearfix">
-                    <div class="column full">
-                        <h2>${artikel.titel}</h2>
-                    </div>
-                </div>
-                <div class="row clearfix">
-                    <div class="column full">
+                    <div class="column third">
 
+                        <button id="overzichtlink" class="button center" onclick="goBack()">Terug naar overzicht</button>
+                    </div>
+                    <div class="column two-thirds">
+                        <h2>${artikel.titel}</h2>
+                        <div class="CSSTableGenerator">
+                            <table>
+                                <tr>
+                                    <td>Titel</td>
+                                    <!-- extra kolommen naargelang het dvd of boek is -->
+                                    <!-- Als het DVD is: -->
+                                    <c:if test="${sessionScope.type == 'DVD'}">
+                                        <td>Regisseur</td>
+                                    </c:if>
+                                    <c:if test="${sessionScope.type == 'Boek'}">
+                                        <td>Auteur</td>
+                                        <td>Aantal paginas</td>
+                                    </c:if>
+                                    <td>Genre</td>
+                                    <td>Jaar</td>
+                                </tr>
+                                <tr>
+                                    <td>${artikel.titel}</td>
+                                    <c:if test="${sessionScope.type == 'Boek'}">
+                                        <td>${artikel.auteur}</td>
+                                        <td>${artikel.aantalpaginas}</td>
+                                    </c:if>
+                                    <c:if test="${sessionScope.type == 'DVD'}">
+                                        <td>${artikel.regisseur}</td>
+                                    </c:if>
+                                    <td class="lowercase">${fn:toLowerCase(artikel.genre)}</td>
+                                    <td>${artikel.jaar}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <form class="morepadding" method="GET" action="ManageServlet">
+                            <input class="hidden" name="id" value="${artikel.id}"/>
+                            <label class="detaillabel" for="lidnr">Lidnummer:</label><input class="detailinput" type="text" name="lidnr" id="lidnr" value="${sessionScope.lid.lidnummer}"/><input id="nieuwLid" type="submit" name="nieuwLid" value="Nog geen lidnummer?"/><br>
+                            <div class="littlepadding">
+                                <label class="detaillabel"></label><input class="detailinput" type="submit" name="uitlenen" value="Uitlenen"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
