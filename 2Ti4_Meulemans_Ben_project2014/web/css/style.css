@@ -26,7 +26,12 @@ section{
     display:none;
 }
 .mediuminput{
+    display: inline-block;
     width: 250px;
+}
+smallerinput{
+    display: inline-block;
+    width: 200px;    
 }
 footer{
     padding: 10px;
@@ -109,6 +114,10 @@ button.center, a.center, input[type=submit].center{
     position: relative;
     margin-left: -100px;
     left:50%;
+}
+.center{
+    width: 505px;
+    margin: 0 auto;
 }
 .rightalign{
     text-align: left;

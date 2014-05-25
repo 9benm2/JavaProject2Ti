@@ -67,8 +67,7 @@
             <div class="container">
                 <div class="row clearfix">
                     <div class="column third">
-
-                        <button id="overzichtlink" class="button center" onclick="goBack()">Terug naar overzicht</button>
+                        <button id="overzichtlink" class="button center" onclick="goBack()">Terug</button>
                     </div>
                     <div class="column two-thirds">
                         <h2>${artikel.titel}</h2>

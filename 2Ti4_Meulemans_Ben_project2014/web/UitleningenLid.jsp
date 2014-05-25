@@ -79,42 +79,32 @@
                         <div class="melding">
                         </div>
 
-                        <h2>Leden</h2>
+                        <h2>Uitleningen</h2>
                         <div class="CSSTableGenerator" >
                             <table >
                                 <tr>
                                     <td>
-                                        Lidnummer
+                                        Artikel
                                     </td>
                                     <td>
-                                        E-mail
+                                        Lid
                                     </td>
                                     <td >
-                                        Voornaam
-                                    </td>
-                                    <td>
-                                        Achternaam
+                                        Uitleendatum
                                     </td>
                                 </tr>
-                                <c:forEach var="lid" items="${requestScope.leden}">
+                                <c:forEach var="uitlening" items="${requestScope.uitleningen}">
                                     <tr>
                                         <td>
-                                            <a href="ManageServlet?adminLidId=${lid.id}">
-                                                <c:out value="${lid.lidnummer}"/></a>
+                                            <c:out value="${uitlening.artikel.titel}"/></a>
                                         </td>
                                         <td>
-                                            <c:out value="${lid.email}">
-                                            </c:out>
-                                        </td>
-
-                                        <td>
-                                            <c:out value="${lid.voornaam}">
+                                            <c:out value="${uitlening.lid.voornaam}">
                                             </c:out>
                                         </td>
                                         <td>
-                                            <c:out value="${lid.familienaam}">
-                                            </c:out>
-                                        </td>
+                                    <fmt:formatDate type="date" value="${uitlening.uitleendatum}" />
+                                    </td>
                                     </tr>            
                                 </c:forEach>
                             </table>

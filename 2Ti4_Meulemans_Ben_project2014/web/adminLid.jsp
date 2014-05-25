@@ -14,7 +14,7 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mediatheek - Nieuw lid</title>
+        <title>Mediatheek - home</title>
 
         <!-- Mobile Specific Metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@
         <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
         <script>
             $(function() {
-                $("input[type=submit], button").button();
+                $("input[type=submit], button, .button").button();
             });
             function goBack()
             {
@@ -66,18 +66,22 @@
             <div class="container">
                 <div class="row clearfix">
                     <div class="column third">
-                        <button id="overzichtlink" class="button center" onclick="goBack()">Terug naar overzicht</button>
+                        <button id="overzichtlink" class="button center" onclick="goBack()">Terug</button>
                     </div>
                     <div class="column two-thirds">
-                        <h2>Registratie nieuw lid</h2>
-                        <form method="GET" action="ManageServlet">
-                            <label for="email" class="littlepadding detaillabel">E-mail</label><input class="mediuminput" required type="text" id="email" name="email"/><br>
-                            <label for="voornaam" class="littlepadding detaillabel">Voornaam</label><input class="mediuminput" required type="text" id="voornaam" name="voornaam"/><br>
-                            <label for="familienaam" class="littlepadding detaillabel">Familienaam</label><input class="mediuminput" required type="text" id="familienaam" name="familienaam"/><br>
-                            <div class="littlepadding">
-                                <label class="detaillabel"></label><input class="mediuminput" type="submit" value="Registreren" name="registreren"/>
-                            </div>
-                        </form>
+                        <div class="center">
+                            <h2>Beheer lid</h2>
+                            <form method="GET" action="ManageServlet">
+                                <span class="hidden"><input class="mediuminput littlebotmargin" type="text" name="id" value="${requestScope.lid.id}"/></span> <br>
+                                <label class="mediuminput" for="lidnummer">Lidnummer:</label><input disabled="disabled" name="lidnummer" class="mediuminput littlebotmargin" type="text" value="${requestScope.lid.lidnummer}"/> <br>
+                                <label class="mediuminput" for="lidnummer">E-mail:</label><input name="email" class="mediuminput littlebotmargin" type="text" value="${requestScope.lid.email}"/> <br>
+                                <label class="mediuminput" for="lidnummer">Voornaam:</label><input name="voornaam" class="mediuminput littlebotmargin" type="text" value="${requestScope.lid.voornaam}"/> <br>
+                                <label class="mediuminput" for="lidnummer">Familienaam:</label><input name="familienaam" class="mediuminput littlebotmargin" type="text" value="${requestScope.lid.familienaam}"/> <br>
+                                <a href="ManageServlet?verwijderLid=ja&lidId=${requestScope.lid.id}" class="mediuminput button">Verwijderen</a><input class="mediuminput" type="submit" value="Opslaan" name="opslaanLid"/><br>
+                                <a href="ManageServlet?uitleningenLidId=${requestScope.lid.id}" class="mediuminput button">Raadpleeg uitleningen</a>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
