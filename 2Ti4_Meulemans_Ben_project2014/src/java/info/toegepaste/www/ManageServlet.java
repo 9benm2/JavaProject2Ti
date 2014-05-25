@@ -69,12 +69,19 @@ public class ManageServlet extends HttpServlet {
                 //als de andere dingen ingevuld zin filteren door de items die niet voldoen te verwijderen uit de lijst met remove
             }
             if (request.getParameter("detail") != null) {
-                Query q = em.createNamedQuery("Artikel.GetArtikelById");
-                q.setParameter("id", Long.parseLong(request.getParameter("id")));
-
-                Object artikel = q.getSingleResult();
+                //check of dvd of boek is
+                if (request.getParameter("detail").toString().equals("dvd")) {
+                    Query q = em.createNamedQuery("DVD.GetDvdById");
+                    q.setParameter("id", Long.parseLong(request.getParameter("id")));
+                    Object artikel = q.getSingleResult();
+                    request.setAttribute("artikel", artikel);
+                } else {
+                    Query q = em.createNamedQuery("Boek.GetBoekById");
+                    q.setParameter("id", Long.parseLong(request.getParameter("id")));
+                    Object artikel = q.getSingleResult();
+                    request.setAttribute("artikel", artikel);
+                }
                 em.close();
-                request.setAttribute("artikel", artikel);
                 rd = request.getRequestDispatcher("detail.jsp");
             }
 

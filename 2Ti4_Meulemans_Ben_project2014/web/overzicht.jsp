@@ -151,7 +151,7 @@
                                 <c:forEach var="dvd" items="${requestScope.dvds}">
                                     <tr>
                                         <td>
-                                            <a href="dvd.jsp?id=${dvd.id}">
+                                            <a href="ManageServlet?detail=dvd&id=${dvd.id}">
                                                 <c:out value="${dvd.titel}"/></a>
                                         </td>
                                         <td class="lowercase">

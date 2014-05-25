@@ -20,7 +20,8 @@ import javax.persistence.NamedQuery;
  */
 @NamedQueries({
     @NamedQuery(name = "DVD.GetAllDvds", query = "select d from DVD d order by d.titel"),
-    @NamedQuery(name = "DVD.GetByTitel", query = "SELECT d FROM DVD d WHERE lower(d.titel) like :titel order by d.titel")
+    @NamedQuery(name = "DVD.GetByTitel", query = "SELECT d FROM DVD d WHERE lower(d.titel) like :titel order by d.titel"),
+    @NamedQuery(name = "DVD.GetDvdById", query = "select d from DVD d where d.id = :id")
 })
 
 @Entity

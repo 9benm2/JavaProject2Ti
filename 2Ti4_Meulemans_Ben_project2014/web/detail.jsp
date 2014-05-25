@@ -45,7 +45,12 @@
             <div class="container">
                 <div class="row clearfix">
                     <div class="column full">
-                        
+                        <h2>${artikel.titel}</h2>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="column full">
+
                     </div>
                 </div>
             </div>
